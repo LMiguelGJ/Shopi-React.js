@@ -20,14 +20,26 @@ export const ShoppingCardProvider = (context) => {
     // Get Products
     const [items, setItems] = useState(null);
 
+    // Get filter items 
+    const [filteredItems, setFilteredItems] = useState(null);
+
+    // Get product by title 
     const [searchByTitle, setSearchByTitle] = useState(null);
-    console.log(searchByTitle)
 
     useEffect(() => {
         fetch('https://api.escuelajs.co/api/v1/products?offset=0&limit=48')
         .then(response => response.json())
         .then(data => setItems(data))
     }, [])
+
+    const filteredItemsByTitle = (items, searchByTitle) => {
+        return items?.filter(item => item.title.toLowerCase().includes(searchByTitle.toLowerCase()))
+    }
+
+    useEffect(() => {
+        if (searchByTitle) setFilteredItems(filteredItemsByTitle(items, searchByTitle))
+    }, [items, searchByTitle]) 
+
 
 
     const [isCheckoutsitemenuOpen, setIsCheckoutsitemenuOpen] = useState(false);
@@ -53,7 +65,9 @@ export const ShoppingCardProvider = (context) => {
             items,
             setItems,
             searchByTitle,
-            setSearchByTitle
+            setSearchByTitle,
+            filteredItems,
+            setFilteredItems,
         }}>
             {context.children}
         </ShoppingCardContext.Provider>
