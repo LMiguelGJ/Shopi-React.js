@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const ShoppingCardContext = createContext()
 
@@ -16,6 +16,19 @@ export const ShoppingCardProvider = (context) => {
     
     // Shopping Cart · Order
     const [order, setOrder] = useState([])
+
+    // Get Products
+    const [items, setItems] = useState(null);
+
+    const [searchByTitle, setSearchByTitle] = useState(null);
+    console.log(searchByTitle)
+
+    useEffect(() => {
+        fetch('https://api.escuelajs.co/api/v1/products?offset=0&limit=48')
+        .then(response => response.json())
+        .then(data => setItems(data))
+    }, [])
+
 
     const [isCheckoutsitemenuOpen, setIsCheckoutsitemenuOpen] = useState(false);
     const openCheckoutSiteMenu = () => setIsCheckoutsitemenuOpen(true);
@@ -37,6 +50,10 @@ export const ShoppingCardProvider = (context) => {
             closeCheckoutSiteMenu,
             order,
             setOrder,
+            items,
+            setItems,
+            searchByTitle,
+            setSearchByTitle
         }}>
             {context.children}
         </ShoppingCardContext.Provider>
