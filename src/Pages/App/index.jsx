@@ -16,6 +16,7 @@ const AppRoutes = () => {
     {path: '/My-Order', element: <MyOrder/>},
     {path: '/My-Orders', element: <MyOrders/>},
     {path: '/My-Orders/last', element: <MyOrder/>},
+    {path: '/My-Orders/:id', element: <MyOrder/>},
     {path: '/*', element: <NotFound/>},
     {path: '/Signing', element: <Signing/>},
   ])
