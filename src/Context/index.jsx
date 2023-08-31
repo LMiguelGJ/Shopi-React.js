@@ -1,9 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useEffect, useState } from "react";
+import { initializeLocalStorage } from "./useLocalStorage";
 
 export const ShoppingCardContext = createContext()
 
 export const ShoppingCardProvider = (context) => {
+    const {parsedAccount, parseSignOut} = initializeLocalStorage(({}, true))
+
+    // My  account
+    const [account, setAccount] = useState({})
+
+    // Sign out
+    const [signOut, setSignOut] = useState(false)
+
     const [count, setCount] = useState(0);
 
     const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
@@ -97,6 +106,12 @@ export const ShoppingCardProvider = (context) => {
             setFilteredItems,
             setSearchByCategory,
             searchByCategory,
+            account,
+            setAccount,
+            signOut,
+            setSignOut,
+            parsedAccount,
+            parseSignOut
         }}>
             {context.children}
         </ShoppingCardContext.Provider>

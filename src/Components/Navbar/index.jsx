@@ -2,11 +2,18 @@ import { NavLink } from "react-router-dom"
 import { useContext } from "react";
 import { ShoppingCardContext } from "../../Context";
 import { ShoppingBagIcon } from "@heroicons/react/24/solid";
+import { initializeLocalStorage } from "../../Context/useLocalStorage";
 
 
 const Navbar = () => {
     const context = useContext(ShoppingCardContext)
     const activeStyle = 'underline underline-offset-4'
+
+    const handleSignOut = () => {
+        const {parsedAccount, parseSignOut} = initializeLocalStorage(({}, true))
+        context.setSignOut(parseSignOut)
+        context.setAccount(parsedAccount)
+    }
 
     return (
         <nav className="flex justify-between items-center fixed z-10 top-0 w-full 
@@ -109,7 +116,8 @@ const Navbar = () => {
                         to='/Signing'
                         className={({ isActive }) =>
                             isActive ? activeStyle : undefined
-                        }>
+                        }
+                        onClick={() => handleSignOut()}>
                         Signing
                     </NavLink>
                 </li>
