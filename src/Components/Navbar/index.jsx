@@ -97,15 +97,6 @@ const Navbar = () => {
                 </li>
                 <li>
                     <NavLink
-                        to='/My-Order'
-                        className={({ isActive }) =>
-                            isActive ? activeStyle : undefined
-                        }>
-                        My Order
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink
                         to='/My-Orders'
                         className={({ isActive }) =>
                             isActive ? activeStyle : undefined
@@ -125,7 +116,7 @@ const Navbar = () => {
                 <li>
                     <NavLink className=' flex justify-between items-center'>
                     <ShoppingBagIcon className="h-4 w-4 stroke-black/60 m-1" />
-                    {context.count}
+                    {context.cartProduct.length}
                     </NavLink>
                 </li>
             </ul>

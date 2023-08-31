@@ -10,7 +10,6 @@ function Home() {
     const context = useContext(ShoppingCardContext)
 
     const renderView = () => {
-            console.log(context.filteredItems)
             if (context.filteredItems?.length > 0) {
                 return (
                     context.filteredItems?.map(item => (

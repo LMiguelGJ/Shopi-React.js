@@ -73,8 +73,6 @@ export const ShoppingCardProvider = (context) => {
     const openCheckoutSiteMenu = () => setIsCheckoutsitemenuOpen(true);
     const closeCheckoutSiteMenu = () => setIsCheckoutsitemenuOpen(false);
 
-    console.log(filteredItems)
-
     return (
         <ShoppingCardContext.Provider value={{
             count,
