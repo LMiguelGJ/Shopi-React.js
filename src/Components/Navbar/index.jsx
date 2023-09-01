@@ -16,7 +16,7 @@ const Navbar = () => {
     // console.log(context.signOut)
 
     const renderView = () => {
-        if (!context.SignOut && context.parseSignOut) {
+        if (!context.SignOut && !context.parseSignOut === false) {
             return (
                 <><li>
                 <NavLink className="text-black/60">
