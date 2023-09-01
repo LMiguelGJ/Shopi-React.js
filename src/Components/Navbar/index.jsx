@@ -2,7 +2,6 @@ import { NavLink } from "react-router-dom"
 import { useContext } from "react";
 import { ShoppingCardContext } from "../../Context";
 import { ShoppingBagIcon } from "@heroicons/react/24/solid";
-import { initializeLocalStorage } from "../../Context/useLocalStorage";
 
 
 const Navbar = () => {
@@ -10,9 +9,63 @@ const Navbar = () => {
     const activeStyle = 'underline underline-offset-4'
 
     const handleSignOut = () => {
-        const {parsedAccount, parseSignOut} = initializeLocalStorage(({}, true))
-        context.setSignOut(parseSignOut)
-        context.setAccount(parsedAccount)
+        context.setParseSignOut(true)
+        context.setSignOut(true)
+    }
+    // console.log(context.parseSignOut)
+    // console.log(context.signOut)
+
+    const renderView = () => {
+        if (!context.SignOut && context.parseSignOut) {
+            return (
+                <><li>
+                <NavLink className="text-black/60">
+                    Luis@plazit.com
+                </NavLink>
+            </li>
+            <li>
+                <NavLink
+                    to='/My-Account'
+                    className={({ isActive }) =>
+                        isActive ? activeStyle : undefined
+                    }>
+                    My Account
+                </NavLink>
+            </li>
+            <li>
+                <NavLink
+                    to='/My-Orders'
+                    className={({ isActive }) =>
+                        isActive ? activeStyle : undefined
+                    }>
+                    My Orders
+                </NavLink>
+            </li>
+            <li>
+                <NavLink
+                    to='/Signing'
+                    className={({ isActive }) =>
+                        isActive ? activeStyle : undefined
+                    }
+                    onClick={() => handleSignOut()}>
+                    Signing
+                </NavLink>
+            </li></>
+            )
+        } else {
+            return (
+                <li>
+                <NavLink
+                    to='/Signing'
+                    className={({ isActive }) =>
+                        isActive ? activeStyle : undefined
+                    }
+                    onClick={() => handleSignOut()}>
+                    Signing
+                </NavLink>
+            </li>
+            )
+        }
     }
 
     return (
@@ -88,39 +141,7 @@ const Navbar = () => {
             </ul>
             {/* ---> */}
             <ul className="flex items-center gap-3">
-                <li>
-                    <NavLink className="text-black/60">
-                        Luis@plazit.com
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink
-                        to='/My-Account'
-                        className={({ isActive }) =>
-                            isActive ? activeStyle : undefined
-                        }>
-                        My Account
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink
-                        to='/My-Orders'
-                        className={({ isActive }) =>
-                            isActive ? activeStyle : undefined
-                        }>
-                        My Orders
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink
-                        to='/Signing'
-                        className={({ isActive }) =>
-                            isActive ? activeStyle : undefined
-                        }
-                        onClick={() => handleSignOut()}>
-                        Signing
-                    </NavLink>
-                </li>
+                {renderView()}
                 <li>
                     <NavLink className=' flex justify-between items-center'>
                     <ShoppingBagIcon className="h-4 w-4 stroke-black/60 m-1" />
