@@ -16,7 +16,8 @@ const Signing = () => {
         context.setSignOut(newItem)
         console.log(context.signOut)
     }
-
+    
+    const hasUserAnAccount = context.signOut
 
     return (
         <>
@@ -32,13 +33,11 @@ const Signing = () => {
                     <span className="font-medium text-xl">Password: </span>
                     <span className="text-lg font-medium">********</span> 
                 </p>
-                <Link 
-                to="/"
-                >
+                <Link to="/">
                     <button
                     className="bg-black disabled:bg-black/40 text-white
                     w-full rounded-lg py-3 mt-4 text-xl font-bold"
-                    // disabled={!hasUserAnAccount}
+                    disabled={!hasUserAnAccount}
                     onClick={() => setParseSignOut(true)}
                     >Login</button>
                 </Link>
@@ -47,7 +46,8 @@ const Signing = () => {
                 </div>
                 <button className=" border border-black disabled:text-black/40
                 disabled:border-black/40 rounded-lg mt-4 py-3 text-xl font-bold"
-                // disabled={hasUserAnAccount}
+                disabled={hasUserAnAccount}
+                onClick={() => setParseSignOut(false)}
                 >Signing
                 </button>
             </div>
