@@ -7,16 +7,9 @@ import { ShoppingBagIcon } from "@heroicons/react/24/solid";
 const Navbar = () => {
     const context = useContext(ShoppingCardContext)
     const activeStyle = 'underline underline-offset-4'
-
-    const handleSignOut = () => {
-        context.setParseSignOut(true)
-        context.setSignOut(true)
-    }
-    // console.log(context.parseSignOut)
-    // console.log(context.signOut)
-
+    
     const renderView = () => {
-        if (!context.SignOut && !context.parseSignOut === false) {
+        if (context.signOut || context.parseSignOut === true) {
             return (
                 <><li>
                 <NavLink className="text-black/60">
@@ -46,8 +39,7 @@ const Navbar = () => {
                     to='/Signing'
                     className={({ isActive }) =>
                         isActive ? activeStyle : undefined
-                    }
-                    onClick={() => handleSignOut()}>
+                    }>
                     Signing
                 </NavLink>
             </li></>
@@ -59,8 +51,7 @@ const Navbar = () => {
                     to='/Signing'
                     className={({ isActive }) =>
                         isActive ? activeStyle : undefined
-                    }
-                    onClick={() => handleSignOut()}>
+                    }>
                     Signing
                 </NavLink>
             </li>

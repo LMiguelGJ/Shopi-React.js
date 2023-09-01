@@ -8,8 +8,7 @@ export const ShoppingCardProvider = (context) => {
     const {
         parsedAccount, 
         parseSignOut, 
-        setParsedAccount, 
-        setParseSignOut} = initializeLocalStorage()
+    } = initializeLocalStorage()
 
     // My  account
     const [account, setAccount] = useState(parsedAccount)
@@ -110,14 +109,10 @@ export const ShoppingCardProvider = (context) => {
             setFilteredItems,
             setSearchByCategory,
             searchByCategory,
+            signOut,
             account,
             setAccount,
-            signOut,
-            setSignOut,
-            parsedAccount, 
-            parseSignOut, 
-            setParsedAccount, 
-            setParseSignOut
+            setSignOut
         }}>
             {context.children}
         </ShoppingCardContext.Provider>

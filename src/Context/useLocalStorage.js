@@ -18,17 +18,8 @@ function initializeLocalStorage() {
         parseSignOut = JSON.parse(singOutInLocalStorage)
     }
 
-    const setParsedAccount = (newItem) => {
-        localStorage.setItem('account', JSON.stringify(newItem))
-        parsedAccount = newItem
-    };
 
-    const setParseSignOut = (newItem) => {
-        localStorage.setItem('sign-out', JSON.stringify(newItem))
-        parseSignOut = newItem
-    };
-
-    return {parsedAccount, parseSignOut, setParsedAccount, setParseSignOut}
+    return {parsedAccount, parseSignOut}
 
 }
 
