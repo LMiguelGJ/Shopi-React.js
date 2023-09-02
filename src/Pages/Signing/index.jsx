@@ -18,7 +18,7 @@ const Signing = () => {
         context.setSignOut(newItem)
     }
 
-    // const hasUserAnAccount = context.signOut
+    const hasUserAnAccount = Object.keys(context.account).length > 0  ? true : false
 
     const renderLogin = () => {
         return (
@@ -35,7 +35,7 @@ const Signing = () => {
                     <button
                         className="bg-black disabled:bg-black/40 text-white
                     w-full rounded-lg py-3 mt-4 text-xl font-bold"
-                        // disabled={!hasUserAnAccount}
+                        disabled={!hasUserAnAccount}
                     onClick={() => setParseSignOut(true)}
                     >Login</button>
                 </Link>
@@ -44,7 +44,7 @@ const Signing = () => {
                 </div>
                 <button className=" border border-black disabled:text-black/40
                 disabled:border-black/40 rounded-lg mt-4 py-3 text-xl font-bold"
-                    // disabled={hasUserAnAccount}
+                    disabled={hasUserAnAccount}
                 onClick={() => setView('create-info-user')}
                 >Signing
                 </button>
