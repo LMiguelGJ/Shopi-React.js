@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Layout from "../../Components/Layout";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { ShoppingCardContext } from "../../Context";
 
 const Signing = () => {
@@ -8,10 +8,13 @@ const Signing = () => {
 
     const [view, setView] = useState('user-info')
 
-    // const setParsedAccount = (newItem) => {
-    //     localStorage.setItem('account', JSON.stringify(newItem))
-    //     context.setAccount(newItem)
-    // };
+    const form = useRef(null)
+
+
+    const setParsedAccount = (newItem) => {
+        localStorage.setItem('account', JSON.stringify(newItem))
+        context.setAccount(newItem)
+    };
 
     function setParseSignOut(newItem) {
         localStorage.setItem('sign-out', JSON.stringify(newItem))
@@ -19,6 +22,15 @@ const Signing = () => {
     }
 
     const hasUserAnAccount = Object.keys(context.account).length > 0  ? true : false
+
+    const createAnAccount = () => {
+		const formData = new FormData(form.current)
+		const data = {
+			name: formData.get('name'),
+			email: formData.get('email'),
+			password: formData.get('password')
+		}
+        setParsedAccount(data)}
 
     const renderLogin = () => {
         return (
@@ -54,8 +66,53 @@ const Signing = () => {
 
     const renderCreateInfoUser = () => {
         return (
-            <></>
-        )
+            <form ref={form} className='flex flex-col gap-4 w-80'>
+              <div className='flex flex-col gap-1'>
+                <label htmlFor="name" className='font-medium text-sm'>Your name:</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  defaultValue={context.account?.name}
+                  placeholder="Peter"
+                  className='rounded-lg border border-black placeholder:font-light
+                  placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
+                />
+              </div>
+              <div className='flex flex-col gap-1'>
+                <label htmlFor="email" className='font-medium text-sm'>Your email:</label>
+                <input
+                  type="text"
+                  id="email"
+                  name="email"
+                  defaultValue={context.account?.email}
+                  placeholder="hi@helloworld.com"
+                  className='rounded-lg border border-black
+                  placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
+                />
+              </div>
+              <div className='flex flex-col gap-1'>
+                <label htmlFor="password" className='font-medium text-sm'>Your password:</label>
+                <input
+                  type="text"
+                  id="password"
+                  name="password"
+                  defaultValue={context.account?.password}
+                  placeholder="******"
+                  className='rounded-lg border border-black
+                  placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
+                />
+              </div>
+              <Link to="/">
+                <button
+                  className='bg-black text-white w-full rounded-lg py-3'
+                  onClick={() => createAnAccount()}
+                  >
+                  Create
+                </button>
+              </Link>
+            </form>
+          )
     }
 
     const renderView = () => view === 'create-info-user' ? renderCreateInfoUser() : renderLogin()
