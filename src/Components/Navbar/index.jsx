@@ -7,6 +7,8 @@ import { ShoppingBagIcon } from "@heroicons/react/24/solid";
 const Navbar = () => {
     const context = useContext(ShoppingCardContext)
     const activeStyle = 'underline underline-offset-4'
+
+    const hasUserAnAccount = Object.keys(context.account).length > 0  ? true : false
     
     const renderView = () => {
         if (context.signOut || context.parseSignOut === true) {
@@ -65,7 +67,7 @@ const Navbar = () => {
             <ul className="flex items-center gap-3">
                 <li className="font-bold text-3xl">
                     <NavLink
-                        to='/'>
+                        to={`${hasUserAnAccount ? '/' : '/Signing'}`}>
                         Shopi
                     </NavLink>
                 </li>

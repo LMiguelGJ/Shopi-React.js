@@ -1,5 +1,5 @@
-import { useRoutes, BrowserRouter } from 'react-router-dom'
-import { ShoppingCardProvider } from "../../Context";
+import { useRoutes, BrowserRouter, Navigate } from 'react-router-dom'
+import { ShoppingCardContext, ShoppingCardProvider } from "../../Context";
 import Home from '../Home'
 import MyAccount from '../MyAccount'
 import MyOrder from '../MyOrder'
@@ -8,15 +8,19 @@ import NotFound from '../NotFound'
 import Signing from '../Signing'
 import Navbar from '../../Components/Navbar'
 import './App.css'
+import { useContext } from 'react';
 
 const AppRoutes = () => {
+  const context = useContext(ShoppingCardContext)
+  const hasUserAnAccount = Object.keys(context.account).length > 0 && context.signOut  ? true : false
+
   let routes = useRoutes([
-    {path: '/', element: <Home/>},
-    {path: '/clothes', element: <Home/>},
-    {path: '/electronics', element: <Home/>},
-    {path: '/furniture', element: <Home/>},
-    {path: '/toys', element: <Home/>},
-    {path: '/others', element: <Home/>},
+    {path: '/', element: hasUserAnAccount ? <Home/> : <Navigate replace to={'/Signing'}/>},
+    {path: '/clothes', element: hasUserAnAccount ? <Home/> : <Navigate replace to={'/Signing'}/>},
+    {path: '/electronics', element: hasUserAnAccount ? <Home/> : <Navigate replace to={'/Signing'}/>},
+    {path: '/furniture', element: hasUserAnAccount ? <Home/> : <Navigate replace to={'/Signing'}/>},
+    {path: '/toys', element: hasUserAnAccount ? <Home/> : <Navigate replace to={'/Signing'}/>},
+    {path: '/others', element: hasUserAnAccount ? <Home/> : <Navigate replace to={'/Signing'}/>},
     {path: '/My-Account', element: <MyAccount/>},
     {path: '/My-Order', element: <MyOrder/>},
     {path: '/My-Orders', element: <MyOrders/>},
