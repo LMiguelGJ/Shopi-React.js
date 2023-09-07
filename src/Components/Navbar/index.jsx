@@ -15,7 +15,7 @@ const Navbar = () => {
             return (
                 <><li>
                 <NavLink className="text-black/60">
-                    Luis@plazit.com
+                {context.account?.email}
                 </NavLink>
             </li>
             <li>
